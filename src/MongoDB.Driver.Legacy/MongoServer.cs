@@ -738,7 +738,7 @@ namespace MongoDB.Driver
         /// using statement (in which case RequestDone will be called automatically when leaving the using statement).
         /// </summary>
         /// <returns>A helper object that implements IDisposable and calls <see cref="RequestDone"/> from the Dispose method.</returns>
-        internal virtual IDisposable RequestStart()
+        public virtual IDisposable RequestStart()
         {
             return RequestStart(ReadPreference.Primary);
         }
@@ -750,7 +750,7 @@ namespace MongoDB.Driver
         /// </summary>
         /// <param name="readPreference">The read preference.</param>
         /// <returns>A helper object that implements IDisposable and calls <see cref="RequestDone"/> from the Dispose method.</returns>
-        internal virtual IDisposable RequestStart(ReadPreference readPreference)
+        public virtual IDisposable RequestStart(ReadPreference readPreference)
         {
             var serverSelector = new ReadPreferenceServerSelector(readPreference);
             return RequestStart(serverSelector, readPreference);
@@ -763,7 +763,7 @@ namespace MongoDB.Driver
         /// </summary>
         /// <param name="serverInstance">The server instance this request should be tied to.</param>
         /// <returns>A helper object that implements IDisposable and calls <see cref="RequestDone"/> from the Dispose method.</returns>
-        internal virtual IDisposable RequestStart(MongoServerInstance serverInstance)
+        public virtual IDisposable RequestStart(MongoServerInstance serverInstance)
         {
             var endPoint = serverInstance.EndPoint;
             var serverSelector = new EndPointServerSelector(endPoint);
@@ -855,7 +855,7 @@ namespace MongoDB.Driver
             }
         }
 
-        private IDisposable RequestStart(IServerSelector serverSelector, ReadPreference readPreference)
+        public IDisposable RequestStart(IServerSelector serverSelector, ReadPreference readPreference)
         {
             var request = __threadStaticRequest;
             if (request != null)
